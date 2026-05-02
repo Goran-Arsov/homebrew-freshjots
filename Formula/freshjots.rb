@@ -1,30 +1,41 @@
 # Homebrew formula for the Fresh Jots CLI.
 #
-# Homebrew tap. It does not work as-is until you:
-#
-#   1. Create a `homebrew-freshjots` repo (e.g. github.com/Goran-Arsov/homebrew-freshjots)
-#   2. Tag a release of this CLI (e.g. v0.1.0) and publish a tarball
-#   3. Update the `url` and `sha256` below to point at that release
-#   4. Commit this file as `Formula/freshjots.rb` inside the tap repo
-#
-# Once published, users install with:
-#   brew install Goran-Arsov/freshjots/freshjots
-#
-# Until the tap is set up, ship via curl|sh — see ../README.md.
+# This is a snapshot of the formula currently published in the tap repo at
+# github.com/Goran-Arsov/homebrew-freshjots. Keep them in sync — when you
+# bump VERSION in public/cli/freshjots, recompute the sha256 below and
+# also push the same change to the tap repo. See ../README.md for the
+# full release process.
 class Freshjots < Formula
   desc "Command-line client for Fresh Jots"
   homepage "https://freshjots.com"
-  # Replace before publishing:
   url "https://freshjots.com/cli/freshjots"
-  # url "https://github.com/Goran-Arsov/freshjots-cli/archive/refs/tags/v0.1.0.tar.gz"
   version "0.1.0"
-  sha256 "ebb013891437db6ead5e165f40e409783a16e439f827891b1c479d8ee700bb25"
+  sha256 "4e8e3726224ae4084185aa03fad64cc7a90fc34af25c748a68754013f7400130"
   license "MIT"
 
   depends_on "jq"
 
   def install
     bin.install "freshjots"
+  end
+
+  def caveats
+    <<~EOS
+      Set up your API token to start using freshjots:
+
+        1. Mint a token at https://freshjots.com/settings/api_tokens
+           (account must be on Dev or Dev-pro tier — see /pricing)
+
+        2. Add to your shell rc (replace <paste-token-here>):
+             echo "export FRESHJOTS_TOKEN='<paste-token-here>'" >> ~/.zshrc
+           Then:
+             source ~/.zshrc
+
+        3. Smoke-test:
+             freshjots ls
+             freshjots append cli-test "hello from $(hostname)"
+             freshjots cat cli-test
+    EOS
   end
 
   test do
