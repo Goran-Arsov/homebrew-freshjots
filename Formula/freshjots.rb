@@ -9,8 +9,8 @@ class Freshjots < Formula
   desc "Command-line client for Fresh Jots"
   homepage "https://freshjots.com"
   url "https://freshjots.com/cli/freshjots"
-  version "0.1.0"
-  sha256 "4e8e3726224ae4084185aa03fad64cc7a90fc34af25c748a68754013f7400130"
+  version "0.2.0"
+  sha256 "bf75a9489410fbd907b659ddc33e744946c08dd26e45d90c18ae6a9166f75926"
   license "MIT"
 
   depends_on "jq"
