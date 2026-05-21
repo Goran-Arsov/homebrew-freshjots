@@ -26,8 +26,10 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
 
-      - name: Tap this checkout
-        run: brew tap "$TAP" "$GITHUB_WORKSPACE"
+      - name: Materialise this checkout as a synthetic tap
+        run: |
+          brew tap-new "$TAP" --no-git
+          cp Formula/freshjots.rb "$(brew --repository "$TAP")/Formula/"
 
       - name: brew style
         run: brew style "$TAP/freshjots"
