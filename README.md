@@ -26,10 +26,10 @@ The CLI talks to freshjots.com on your behalf, so it needs a token.
 
    ```bash
    echo "export FRESHJOTS_TOKEN='<paste-token-here>'" >> ~/.zshrc
-   source ~/.zshrc
+   source ~/.zshrc # For Mac OS
    ```
 
-   For bash, use `~/.bashrc` instead.
+   For bash (Linux), use `~/.bashrc` instead.
 
 3. Smoke-test:
 
