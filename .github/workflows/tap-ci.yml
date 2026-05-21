@@ -9,6 +9,9 @@ on:
 permissions:
   contents: read
 
+env:
+  TAP: goran-arsov/freshjots
+
 jobs:
   formula:
     name: ${{ matrix.os }}
@@ -21,16 +24,19 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Homebrew
-        uses: Homebrew/actions/setup-homebrew@master
+        uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Tap this checkout
+        run: brew tap "$TAP" "$GITHUB_WORKSPACE"
 
       - name: brew style
-        run: brew style ./Formula/freshjots.rb
+        run: brew style "$TAP/freshjots"
 
       - name: brew audit
-        run: brew audit --strict --online ./Formula/freshjots.rb
+        run: brew audit --strict --online "$TAP/freshjots"
 
       - name: brew install
-        run: brew install --formula ./Formula/freshjots.rb
+        run: brew install "$TAP/freshjots"
 
       - name: brew test
-        run: brew test freshjots
+        run: brew test "$TAP/freshjots"
