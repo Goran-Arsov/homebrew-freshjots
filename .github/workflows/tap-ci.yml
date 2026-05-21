@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 env:
-  TAP: goran-arsov/freshjots
+  FORMULA: goran-arsov/freshjots/freshjots
 
 jobs:
   formula:
@@ -26,19 +26,14 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
 
-      - name: Materialise this checkout as a synthetic tap
-        run: |
-          brew tap-new "$TAP" --no-git
-          cp Formula/freshjots.rb "$(brew --repository "$TAP")/Formula/"
-
       - name: brew style
-        run: brew style "$TAP/freshjots"
+        run: brew style "$FORMULA"
 
       - name: brew audit
-        run: brew audit --strict --online "$TAP/freshjots"
+        run: brew audit --strict --online "$FORMULA"
 
       - name: brew install
-        run: brew install "$TAP/freshjots"
+        run: brew install "$FORMULA"
 
       - name: brew test
-        run: brew test "$TAP/freshjots"
+        run: brew test "$FORMULA"
