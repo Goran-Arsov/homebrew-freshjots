@@ -1,0 +1,36 @@
+name: tap-ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  formula:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: brew style
+        run: brew style ./Formula/freshjots.rb
+
+      - name: brew audit
+        run: brew audit --strict --online ./Formula/freshjots.rb
+
+      - name: brew install
+        run: brew install --formula ./Formula/freshjots.rb
+
+      - name: brew test
+        run: brew test freshjots
