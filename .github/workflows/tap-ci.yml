@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    # Daily — catches drift between the formula and the live freshjots.com
+    # URLs (binary at /cli/<version>/freshjots, manifest at latest-version.txt)
+    # without waiting for someone to push.
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 permissions:
