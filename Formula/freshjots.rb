@@ -22,7 +22,7 @@ class Freshjots < Formula
       Set up your API token to start using freshjots:
 
         1. Mint a token at https://freshjots.com/settings/api_tokens
-           (account must be on Dev or Dev-pro tier — see /pricing)
+           (account must be on the Pro or Team tier — see /pricing)
 
         2. Add to your shell rc (replace <paste-token-here>):
              echo "export FRESHJOTS_TOKEN='<paste-token-here>'" >> ~/.zshrc
