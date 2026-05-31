@@ -39,6 +39,52 @@ The CLI talks to freshjots.com on your behalf, so it needs a token.
    freshjots cat cli-test
    ```
 
+## Commands
+
+The CLI covers reading, writing, and organizing notes:
+
+```bash
+# Read
+freshjots ls                            # "<id>\t<filename>\t<title>" per row
+freshjots ls -n 10 --sort created       # last 10 by creation (--sort created|updated|appended)
+freshjots ls --folder Work              # filter by folder id or name; --root for un-foldered
+freshjots ls --all -l                   # every page, long format (id, updated, lock, folder, …)
+freshjots get 42                        # full note as JSON (metadata)
+freshjots cat cron-jobs-prod            # note body, by id or filename
+freshjots folders                       # "<id>\t<name>" per row
+freshjots folder 3                      # one folder as JSON
+
+# Write
+freshjots create "Research 2026 Q2"     # new note by title (body from stdin or --body)
+freshjots append cron-jobs-prod "ok"    # append to a stream; creates it on first use
+freshjots update 42 --title T --body B  # edit a note by id
+freshjots set cron-jobs-prod --body B   # same edit, addressed by filename
+freshjots rm cron-jobs-prod             # delete by id or filename
+freshjots bulk notes.json               # create up to 50 notes atomically (or: … | freshjots bulk -)
+
+# Organize
+freshjots mv cron-jobs-prod Work        # move into a folder (id or name); --root to un-folder
+freshjots folder create Work            # create a folder
+freshjots folder rename 3 Archive       # rename a folder
+freshjots folder rm 3                   # delete a folder
+
+# Meta
+freshjots api-reference                 # print the authoritative API reference
+freshjots version                       # print version (run 'freshjots help' for full usage)
+```
+
+`create`, `append`, `bulk`, and `update`/`set` with `-` read from stdin, so the
+usual pipe patterns work:
+
+```bash
+backup.sh && echo "backup ok $(date -Iseconds)" | freshjots append cron-jobs-prod
+git log -1 --pretty=format:"%h %s" | freshjots append deploys
+```
+
+`update` and `set` change only the flags you pass — content (`--title`,
+`--body`, or `-` to read the body from stdin) or metadata (`--folder`/`--root`,
+`--deadline`, `--alert-email`, `--webhook-url`, `--webhook-secret`).
+
 ## Updating
 
 ```bash

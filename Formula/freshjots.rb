@@ -1,8 +1,8 @@
 class Freshjots < Formula
   desc "Command-line client for Fresh Jots"
   homepage "https://freshjots.com"
-  url "https://freshjots.com/cli/0.2.3/freshjots"
-  sha256 "fa9c960e1d28ecd4e3e33151812b954903f7013e977840c13693ddf9fa842ca4"
+  url "https://freshjots.com/cli/1.0.1/freshjots"
+  sha256 "a7628bc064ee4ef45b98c02427be8093994abcfc599021f8839422fc9a516ef7"
   license "MIT"
 
   livecheck do
