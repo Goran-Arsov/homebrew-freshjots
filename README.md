@@ -19,7 +19,7 @@ on your system.
 The CLI talks to freshjots.com on your behalf, so it needs a token.
 
 1. Mint one at <https://freshjots.com/settings/api_tokens>.
-   Your account must be on the **Pro** or **Team** tier — see
+   Your account must be on the **Dev** or **Team** tier — see
    <https://freshjots.com/pricing>.
 
 2. Add it to your shell rc (replace `<paste-token-here>`):

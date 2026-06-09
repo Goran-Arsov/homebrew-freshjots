@@ -1,8 +1,8 @@
 class Freshjots < Formula
   desc "Command-line client for Fresh Jots"
   homepage "https://freshjots.com"
-  url "https://freshjots.com/cli/1.0.1/freshjots"
-  sha256 "a7628bc064ee4ef45b98c02427be8093994abcfc599021f8839422fc9a516ef7"
+  url "https://freshjots.com/cli/1.0.2/freshjots"
+  sha256 "c367cba03fc9917791986a371ab774ec2152ff52bb8f993568d3657e74572311"
   license "MIT"
 
   livecheck do
@@ -21,7 +21,7 @@ class Freshjots < Formula
       Set up your API token to start using freshjots:
 
         1. Mint a token at https://freshjots.com/settings/api_tokens
-           (account must be on the Pro or Team tier — see /pricing)
+           (account must be on the Dev or Team tier — see /pricing)
 
         2. Add to your shell rc (replace <paste-token-here>):
              echo "export FRESHJOTS_TOKEN='<paste-token-here>'" >> ~/.zshrc
