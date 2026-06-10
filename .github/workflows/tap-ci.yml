@@ -26,10 +26,16 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
+
+      # Homebrew's Linux build sandbox needs a rootless bwrap on PATH
+      # before `brew install` will run; the runner image doesn't ship one.
+      - name: Install Bubblewrap for the Homebrew Linux sandbox
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y bubblewrap
 
       - name: brew style
         run: brew style "$FORMULA"
