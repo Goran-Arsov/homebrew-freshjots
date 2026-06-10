@@ -31,11 +31,17 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
 
-      # Homebrew's Linux build sandbox needs a rootless bwrap on PATH
-      # before `brew install` will run; the runner image doesn't ship one.
+      # Homebrew's Linux build sandbox needs a rootless bwrap on PATH and
+      # unprivileged user namespaces enabled; the runner image ships neither.
+      # The sysctls are the ones Homebrew's own error message prescribes
+      # (|| true: not every kernel exposes all three knobs).
       - name: Install Bubblewrap for the Homebrew Linux sandbox
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y bubblewrap
+        run: |
+          sudo apt-get update && sudo apt-get install -y bubblewrap
+          sudo sysctl -w kernel.unprivileged_userns_clone=1 || true
+          sudo sysctl -w user.max_user_namespaces=28633 || true
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 || true
 
       - name: brew style
         run: brew style "$FORMULA"
